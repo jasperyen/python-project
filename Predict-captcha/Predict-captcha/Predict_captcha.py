@@ -5,22 +5,19 @@ import subprocess
 import numpy as np
 
 from keras.models import Model, load_model
-from keras.layers import DepthwiseConv2D
-from keras_applications.mobilenet import relu6
-from keras.utils.generic_utils import CustomObjectScope
 
 captcha_height = 128
 captcha_width = 128
 
-letter_str = '0123456789_'
+letter_str = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ_'
 letter_amount = len(letter_str)
 
 model_path = '..\\..\\model\\captcha_model.h5'
 dir_path = '..\\..\\data\\captcha\\'
+#dir_path = 'C:\\workspace\\temp\\test_data\\wrong\\'
 
 print('Loading model : ' + model_path)
-with CustomObjectScope({'relu6': relu6,'DepthwiseConv2D': DepthwiseConv2D}):
-    model = load_model(model_path)
+model = load_model(model_path)
 
 model.summary()
 print('Load model success\n')

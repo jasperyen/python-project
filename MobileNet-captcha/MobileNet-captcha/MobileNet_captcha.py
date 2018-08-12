@@ -11,7 +11,7 @@ import tensorflow as tf
 from keras.models import Model
 from keras.layers import Input, Dense, Dropout
 from keras.callbacks import ModelCheckpoint, EarlyStopping
-from keras.applications.mobilenet import MobileNet
+from keras.applications.mobilenetv2 import MobileNetV2
 
 def to_onehot(text):
     tag_list = []
@@ -42,14 +42,14 @@ def to_label(read_tag, size):
     return label
 
 
-train_amount = 22000
-test_amount = 5000
-valid_amount = 5000
+train_amount = 40000
+test_amount = 10000
+valid_amount = 10000
 
 captcha_height = 128
 captcha_width = 128
 
-letter_str = "0123456789_"
+letter_str = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ_"
 letter_amount = len(letter_str)
 
 
@@ -73,7 +73,7 @@ valid_6d_tag = [[]] * valid_amount
 print('\nLoading data : ', end='')
 
 #   開始讀檔
-csv_path = "C:\\workspace\\temp\\correct.csv"
+csv_path = "C:\\workspace\\temp\\correct_en.csv"
 
 count = 0
 train_count = 0
@@ -146,7 +146,7 @@ for i in range(6) :
     
 
 #   建置神經網路
-base_model = MobileNet(weights='imagenet', include_top=False, pooling='avg',
+base_model = MobileNetV2(weights='imagenet', include_top=False, pooling='avg',
                         input_shape=(captcha_height, captcha_width, 3))
 
 out = base_model.output
@@ -182,7 +182,7 @@ print('training model . . . ')
 
 train_history = model.fit( x = train_data, y = train_onehot,
                            validation_data = (valid_data, valid_onehot),
-                           epochs = 1000, batch_size = 32, verbose = 2, callbacks = callbacks_list)
+                           epochs = 1000, batch_size = 16, verbose = 2, callbacks = callbacks_list)
 
 evaluate = model.evaluate(test_data, test_onehot)
 print('\ntest evaluate: ', evaluate)
