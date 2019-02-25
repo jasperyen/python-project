@@ -12,8 +12,8 @@ captcha_width = 128
 letter_str = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ_'
 letter_amount = len(letter_str)
 
-model_path = '..\\..\\model\\captcha_model.h5'
-dir_path = '..\\..\\data\\captcha\\'
+model_path = '../../model/captcha_model.h5'
+dir_path = '../../data/captcha/'
 #dir_path = 'C:\\workspace\\temp\\test_data\\wrong\\'
 
 print('Loading model : ' + model_path)
