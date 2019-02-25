@@ -14,6 +14,7 @@ letter_amount = len(letter_str)
 
 model_path = '../../model/captcha_model.h5'
 dir_path = '../../data/captcha/'
+
 #dir_path = 'C:\\workspace\\temp\\test_data\\wrong\\'
 
 print('Loading model : ' + model_path)
