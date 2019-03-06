@@ -2,7 +2,7 @@ from keras.layers import Dense, Conv2D, MaxPool2D, Flatten
 from keras.models import Sequential
 from keras import layers
 from keras import callbacks
-from tensorflow.examples.tutorials.mnist import input_data
+from tensorflow.examples.tutorials import mnist
 
 from kerassurgeon import identify
 from kerassurgeon.operations import delete_channels
@@ -11,9 +11,9 @@ from kerassurgeon.operations import delete_channels
 def main():
     training_verbosity = 2
     # Download data if needed and import.
-    mnist = input_data.read_data_sets('tempData', one_hot=True, reshape=False)
-    val_images = mnist.validation.images
-    val_labels = mnist.validation.labels
+    mnist_data = mnist.input_data.read_data_sets('MNIST_data', one_hot=True, reshape=False)
+    val_images = mnist_data.validation.images
+    val_labels = mnist_data.validation.labels
 
     # Create LeNet model
     model = Sequential()
@@ -49,8 +49,8 @@ def main():
                                             min_lr=0)
 
     # Train LeNet on MNIST
-    results = model.fit(mnist.train.images,
-                        mnist.train.labels,
+    results = model.fit(mnist_data.train.images,
+                        mnist_data.train.labels,
                         epochs=200,
                         batch_size=128,
                         verbose=2,
@@ -78,8 +78,8 @@ def main():
                               verbose=2)
         print('model loss after pruning: ', loss, '\n')
 
-        results = model.fit(mnist.train.images,
-                            mnist.train.labels,
+        results = model.fit(mnist_data.train.images,
+                            mnist_data.train.labels,
                             epochs=200,
                             batch_size=128,
                             verbose=training_verbosity,
