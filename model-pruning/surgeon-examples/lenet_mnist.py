@@ -34,6 +34,8 @@ def main():
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
+    model.summary()
+
     early_stopping = callbacks.EarlyStopping(monitor='val_loss',
                                              min_delta=0,
                                              patience=10,
